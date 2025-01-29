@@ -13,10 +13,10 @@ def profile_views(request, username=None):
     try:
         if username:
             # Agar username diya gaya hai toh, us user ka profile fetch karna
-            profile = get_object_or_404(User, username=username).userprofile
+            profile = get_object_or_404(User, username=username)
         else:
             # Agar current logged-in user ka profile fetch karna
-            profile = request.user.userprofile
+            profile = request.user.userprofile # Current logged-in user ka profile fetch karna
     except ObjectDoesNotExist:
         # Agar user ka profile nahi hai, toh naya profile create karna
         profile = UserProfile.objects.create(user=request.user)  # Naya profile create

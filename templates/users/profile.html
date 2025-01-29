@@ -3,10 +3,10 @@
 {% block content %}
 
 <div class="max-w-lg mx-auto flex flex-col items-center pt-20 px-4">
-    <img class="w-50 h-36  object-cover mb-4" src="{{ profile.background }}" />
-    <img class="w-36 h-36 rounded-full object-cover mb-4" src="{{ profile.avator }}" />
+    <img class="w-50 h-36  object-cover mb-4" src="{{user.userprofile.background }}" />
+    <img class="w-36 h-36 rounded-full object-cover mb-4" src="{{ user.userprofile.avator }}" />
     <div class="text-center">
-        <h1>{{ profile.name }}</h1>
+        <h1>{{ user.userprofile.name }}</h1>
         <div class="text-gray-400 mb-2 -mt-3">@{{ profile.user.username }}</div>
         {% if profile.bio %}
         <div class="mt-8 hyphens-auto">{{ profile.bio|linebreaksbr }}</div>
