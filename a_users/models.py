@@ -5,6 +5,7 @@ from django.conf import settings
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    background = models.ImageField(upload_to='background_pics', blank=True)
     display_name = models.CharField(max_length=50, blank=True)
     image = models.ImageField(upload_to='profile_pics', blank=True)
     bio = models.TextField(max_length=500, blank=True)
