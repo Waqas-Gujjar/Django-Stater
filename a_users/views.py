@@ -26,17 +26,17 @@ def profile_views(request, username=None):
 
 @login_required
 def profile_edit(request):
-    form = UserProfileForm(instance=request.user.profile)
+    form = UserProfileForm(instance=request.user.userprofile)
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
-            return redirect('profile_views', username=request.user.username)
-    return render(request, 'profile_edit.html', {'form':form})
+            return redirect('profile'       )
+    return render(request, 'users/profile_edit.html', {'form':form})
 
 def profile_delete(request, username):
-    profile = get_object_or_404(User, username=username).profile
+    profile = get_object_or_404(User, username=username).userprofile
     profile.delete()
     messages.success(request, 'Profile deleted successfully')
     return redirect('home')

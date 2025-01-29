@@ -30,7 +30,7 @@ class UserProfile(models.Model):
         if self.avator:
             return self.image.url
         else:
-            return settings.STATIC_URL + 'default_avator.jpg'
+            return f'{settings.STATIC_URL}image/avatar.svg'
             
             
 
