@@ -3,15 +3,15 @@
 {% block layout %}
 
 <div class="max-w-lg mx-auto flex flex-col items-center pt-20 px-4">
-    <img class="w-[1000vw] h-36  object-cover mb-4" src="{{ profile.banner }}" />
-    <img class="w-36 h-36 rounded-full object-cover mb-4" src="{{ profile.avator }}" />
+    <img class="w-[1000vw] h-36 object-cover mb-4" src="{{ user.profile.banner }}" />
+    <img class="w-36 h-36 rounded-full object-cover mb-4" src="{{ user.profile.avator  }}" />
     <div class="text-center">
-        <h1>{{ user.userprofile.name }}</h1>
+        <h1>{{ user.profile.name }}</h1>
         <div class="text-gray-400 mb-2 -mt-3">@{{ user.username }}</div>
         {% if profile.bio %}
-        <div class="mt-8 hyphens-auto">{{ profile.bio|linebreaksbr }}</div>
-        {% endif %}  
-        <div class="mt-8 hyphens-auto">{{ profile.location}}</div>
+        <div class="mt-8 hyphens-auto">{{ user.profile.bio|linebreaksbr }}</div>
+        {% endif %}
+        <div class="mt-8 hyphens-auto">{{ user.profile.location }}</div>
     </div>
 </div>
 

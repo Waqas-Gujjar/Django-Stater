@@ -4,33 +4,27 @@ from .forms import UserProfileForm, ChangeEmailForm
 from django.urls import reverse
 from django.contrib import messages
 from django.shortcuts import redirect , get_object_or_404
-from .models import UserProfile 
 from django.contrib.auth.models import User
-from django.contrib.auth import  login, logout
+from django.contrib.auth import   logout
 from allauth.account.utils import send_email_confirmation
 from django.contrib.auth.views import redirect_to_login
-from django.core.exceptions import ObjectDoesNotExist
 
 @login_required
 def profile_views(request, username=None):
-    try:
-        if username:
-            
-            profile = get_object_or_404(User, username=username)
-        else:
-            
-            profile = request.user.userprofile 
-    except ObjectDoesNotExist:
-        profile = UserProfile.objects.create(user=request.user)  # Naya profile create
-        profile.save()  
-
-    return render(request, 'users/profile.html', {'profile': profile})
+    if username:
+        profile = get_object_or_404(User, username=username).profile
+    else:
+        try:
+            profile = request.user.profile
+        except:
+            return redirect_to_login(request.get_full_path())
+    return render(request, 'users/profile.html', {'profile':profile})
 
 @login_required
 def profile_edit(request):
-    form = UserProfileForm(instance=request.user.userprofile)
+    form = UserProfileForm(instance=request.user.profile)
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
@@ -73,8 +67,10 @@ def change_email(request):
             messages.error(request, 'Invalid email')
             return redirect('profile-settings')
     return redirect('home')
-
-
+@login_required
+def profile_confirm_email(request):
+    send_email_confirmation(request, request.user)
+    return redirect('profile-settings')
 
 
 

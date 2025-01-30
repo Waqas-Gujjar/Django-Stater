@@ -23,8 +23,10 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
-     path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
     path('', include('home.urls')),
     path('users/', include('a_users.urls')),
     path('products/', include('b_products.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

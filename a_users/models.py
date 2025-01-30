@@ -4,7 +4,7 @@ from django.conf import settings
 from django.templatetags.static import static
 
 
-class UserProfile(models.Model):
+class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     background = models.ImageField(upload_to='background_pics', blank=True)
     displayname = models.CharField(max_length=50, blank=True)
@@ -25,6 +25,9 @@ class UserProfile(models.Model):
         else:
             name = self.user.username
         return name
+     
+    
+    
     @property
     def avator(self):
         try:

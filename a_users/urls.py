@@ -8,5 +8,6 @@ urlpatterns = [
     path('delete-profile/',profile_delete, name='delete-profile'),
     path('profile-onbording/',profile_edit, name='profile-onboarding'),
     path('profile-settings/',profile_settings, name='profile-settings'),
+    path('confirm-email/', profile_confirm_email, name='confirm-email'),  # confirm email after signup
     path('change-email/', change_email, name='change-email'),
 ]
