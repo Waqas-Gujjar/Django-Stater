@@ -11,10 +11,8 @@ class UserProfile(models.Model):
     image = models.ImageField(upload_to='profile_pics', blank=True)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
-    website = models.URLField(blank=True)
-    instagram = models.URLField(blank=True)
-    twitter = models.URLField(blank=True)
-    facebook = models.URLField(blank=True)
+    
+
 
 
     

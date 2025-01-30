@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm
+from django.urls import reverse
 from django.contrib import messages
 from django.shortcuts import redirect , get_object_or_404
 from .models import UserProfile
@@ -12,15 +13,15 @@ from django.core.exceptions import ObjectDoesNotExist
 def profile_views(request, username=None):
     try:
         if username:
-            # Agar username diya gaya hai toh, us user ka profile fetch karna
+            
             profile = get_object_or_404(User, username=username)
         else:
-            # Agar current logged-in user ka profile fetch karna
-            profile = request.user.userprofile # Current logged-in user ka profile fetch karna
+            
+            profile = request.user.userprofile 
     except ObjectDoesNotExist:
-        # Agar user ka profile nahi hai, toh naya profile create karna
+       
         profile = UserProfile.objects.create(user=request.user)  # Naya profile create
-        profile.save()  # Save karna profile
+        profile.save()  
 
     return render(request, 'users/profile.html', {'profile': profile})
 
@@ -32,8 +33,12 @@ def profile_edit(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
-            return redirect('profile'       )
-    return render(request, 'users/profile_edit.html', {'form':form})
+            return redirect('profile')
+    if request.path == reverse('profile_onbording'):
+        onboarding = True
+    else:
+        onboarding = False
+    return render(request, 'users/profile_edit.html', {'form':form , 'onboarding': onboarding  })
 
 def profile_delete(request, username):
     profile = get_object_or_404(User, username=username).userprofile
