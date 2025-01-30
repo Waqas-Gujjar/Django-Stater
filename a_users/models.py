@@ -33,6 +33,13 @@ class UserProfile(models.Model):
             avator = static('image/avatar.svg')
         return avator
             
+    @property
+    def banner(self):
+        try:
+            banner = self.background.url
+        except:
+            banner = static('image/banner.jpg')
+        return banner
             
 
     

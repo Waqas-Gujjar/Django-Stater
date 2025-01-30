@@ -1,11 +1,12 @@
 from django import forms
 from django.forms import ModelForm
 from .models import *
+from django.contrib.auth.models import User
 
 class UserProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['displayname', 'image', 'bio', 'location']
+        fields = ['displayname', 'image', 'bio', 'location', 'background']
         widgets = {
             'displayname': forms.TextInput(attrs={'class': 'form-control'}),
             'image': forms.FileInput(attrs={'class': 'form-control-file'}),
@@ -19,5 +20,12 @@ class UserProfileForm(ModelForm):
             'location': 'Location',
 
             }
-        
+
+
+class ChangeEmailForm(ModelForm):
+    email = forms.EmailField(required=True)
+    class  Meta:
+        model = User
+        fields = ['email']
+
 
