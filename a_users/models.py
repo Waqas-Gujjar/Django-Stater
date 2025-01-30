@@ -25,15 +25,13 @@ class Profile(models.Model):
         else:
             name = self.user.username
         return name
-     
-    
-    
+         
     @property
     def avator(self):
         try:
             avator = self.image.url
         except:
-            avator = static('image/avatar.svg')
+            avator = static('image/avator.jpg')
         return avator
             
     @property
